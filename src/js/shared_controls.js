@@ -540,6 +540,9 @@ $(".set-selector").change(function () {
 			var set = regSets ? correctHiddenPower(setdex[pokemonName][setName]) : randset;
 			if (regSets) {
 				pokeObj.find(".teraType").val(set.teraType || pokemon.types[0]);
+				if (set.bossMultiplier && set.bossMultiplier > 100) {
+					pokeObj.find(".teraToggle").prop("checked", true);
+				}
 			}
 			pokeObj.find(".level").val(set.level);
             pokeObj.find(".bossMultiplier").val(set.bossMultiplier ? set.bossMultiplier : 100);
@@ -818,7 +821,6 @@ function createPokemon(pokeInfo) {
 				return move.category !== "Status";
 			});
 		}
-        console.log('why am I here ?');
 		return new calc.Pokemon(gen, name, {
 			level: set.level,
 			ability: set.ability,
