@@ -167,3 +167,7 @@ td.sorting_1 {
 label:not(.btn) {
     color: white;
 }
+
+input.select2-input {
+    color: black;
+}
