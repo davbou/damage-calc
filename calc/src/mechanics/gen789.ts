@@ -931,18 +931,6 @@ export function calculateBPModsSMSSSV(
     desc.isHelpingHand = true;
   }
 
-  // if ((field.attackerSide.isAtkCheered && !move.named('Body Press') && !move.named('Foul Play')) ||
-  //   (move.named('Foul Play') && field.defenderSide.isAtkCheered)
-  // ) {
-  //   bpMods.push(6144);
-  //   desc.isAtkCheered = true;
-  // }
-
-  // if (move.named('Body Press') && field.attackerSide.isDefCheered){
-  //   bpMods.push(6144);
-  //   desc.isDefCheered = true;
-  // }
-
   // Field effects
 
   const terrainMultiplier = gen.num > 7 ? 5325 : 6144;
@@ -1173,6 +1161,7 @@ export function calculateAttackSMSSSV(
     attack = pokeRound((attack * 3) / 2);
     desc.attackerAbility = attacker.ability;
   }
+
   const atMods = calculateAtModsSMSSSV(gen, attacker, defender, move, field, desc);
   attack = OF16(Math.max(1, pokeRound((attack * chainMods(atMods, 410, 131072)) / 4096)));
   return attack;
@@ -1270,21 +1259,6 @@ export function calculateAtModsSMSSSV(
     atMods.push(3072);
   }
 
-  if (field.attackerSide.isAtkCheered && !move.named('Body Press') && !move.named('Foul Play')) {
-    atMods.push(6144);
-    desc.isAtkCheered = true;
-  }
-
-  if (move.named('Foul Play') && field.defenderSide.isAtkCheered) {
-    atMods.push(6144);
-    desc.isAtkCheered = true;
-  }
-
-  if (move.named('Body Press') && field.attackerSide.isDefCheered) {
-    atMods.push(6144);
-    desc.isDefCheered = true;
-  }
-
   if (
     (attacker.hasAbility('Protosynthesis') &&
       (field.hasWeather('Sun') || attacker.hasItem('Booster Energy'))) ||
@@ -1329,6 +1303,22 @@ export function calculateAtModsSMSSSV(
     atMods.push(6144);
     desc.attackerItem = attacker.item;
   }
+
+  if (field.attackerSide.isAtkCheered && !move.named('Body Press') && !move.named('Foul Play')) {
+    atMods.push(6144);
+    desc.isAtkCheered = true;
+  }
+
+  if (move.named('Foul Play') && field.defenderSide.isAtkCheered) {
+    atMods.push(6144);
+    desc.isAtkCheered = true;
+  }
+
+  if (move.named('Body Press') && field.attackerSide.isDefCheered) {
+    atMods.push(6144);
+    desc.isDefCheeredBodyPress = true;
+  }
+
   return atMods;
 }
 
@@ -1438,11 +1428,6 @@ export function calculateDfModsSMSSSV(
     dfMods.push(3072);
   }
 
-  if (field.defenderSide.isDefCheered){
-    dfMods.push(6144);
-    desc.isDefCheered = true;
-  }
-
   if (
     (defender.hasAbility('Protosynthesis') &&
     (field.hasWeather('Sun') || attacker.hasItem('Booster Energy'))) ||
@@ -1469,6 +1454,12 @@ export function calculateDfModsSMSSSV(
     dfMods.push(8192);
     desc.defenderItem = defender.item;
   }
+
+  if (field.defenderSide.isDefCheered){
+    dfMods.push(6144);
+    desc.isDefCheered = true;
+  }
+
   return dfMods;
 }
 
@@ -1501,10 +1492,6 @@ export function calculateFinalModsSMSSSV(
     finalMods.push(field.gameType !== 'Singles' ? 2732 : 2048);
     desc.isAuroraVeil = true;
   }
-  // if (field.defenderSide.isDefCheered){
-  //   finalMods.push(2732);
-  //   desc.isDefCheered = true;
-  // }
 
   if (attacker.hasAbility('Neuroforce') && typeEffectiveness > 1) {
     finalMods.push(5120);

@@ -37,6 +37,7 @@ export interface RawDesc {
   isCritical?: boolean;
   isLightScreen?: boolean;
   isDefCheered?: boolean;
+  isDefCheeredBodyPress?: boolean;
   isBurned?: boolean;
   isProtected?: boolean;
   isReflect?: boolean;
@@ -890,7 +891,10 @@ function buildDescription(description: RawDesc, attacker: Pokemon, defender: Pok
     output += 'Helping Hand ';
   }
   if (description.isAtkCheered) {
-    output += 'Atk cheer ' ;
+    output += 'Atk Cheer ';
+  }
+  if (description.isDefCheeredBodyPress) {
+    output += 'Def Cheer ';
   }
   if (description.isFlowerGiftAttacker) {
     output += ' with an ally\'s Flower Gift ';
@@ -971,7 +975,7 @@ function buildDescription(description: RawDesc, attacker: Pokemon, defender: Pok
     if(description.isReflect || description.isLightScreen){
         output += ' and Def Cheer';
     } else {
-        output += ' through Def cheer';
+        output += ' through Def Cheer';
     }
   }
   if (description.isFlowerGiftDefender) {
