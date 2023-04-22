@@ -931,17 +931,17 @@ export function calculateBPModsSMSSSV(
     desc.isHelpingHand = true;
   }
 
-  if ((field.attackerSide.isAtkCheered && !move.named('Body Press') && !move.named('Foul Play')) ||
-    (move.named('Foul Play') && field.defenderSide.isAtkCheered)
-  ) {
-    bpMods.push(6144);
-    desc.isAtkCheered = true;
-  }
+  // if ((field.attackerSide.isAtkCheered && !move.named('Body Press') && !move.named('Foul Play')) ||
+  //   (move.named('Foul Play') && field.defenderSide.isAtkCheered)
+  // ) {
+  //   bpMods.push(6144);
+  //   desc.isAtkCheered = true;
+  // }
 
-  if (move.named('Body Press') && field.attackerSide.isDefCheered){
-    bpMods.push(6144);
-    desc.isDefCheered = true;
-  }
+  // if (move.named('Body Press') && field.attackerSide.isDefCheered){
+  //   bpMods.push(6144);
+  //   desc.isDefCheered = true;
+  // }
 
   // Field effects
 
@@ -1270,6 +1270,21 @@ export function calculateAtModsSMSSSV(
     atMods.push(3072);
   }
 
+  if (field.attackerSide.isAtkCheered && !move.named('Body Press') && !move.named('Foul Play')) {
+    atMods.push(6144);
+    desc.isAtkCheered = true;
+  }
+
+  if (move.named('Foul Play') && field.defenderSide.isAtkCheered) {
+    atMods.push(6144);
+    desc.isAtkCheered = true;
+  }
+
+  if (move.named('Body Press') && field.attackerSide.isDefCheered) {
+    atMods.push(6144);
+    desc.isDefCheered = true;
+  }
+
   if (
     (attacker.hasAbility('Protosynthesis') &&
       (field.hasWeather('Sun') || attacker.hasItem('Booster Energy'))) ||
@@ -1423,6 +1438,11 @@ export function calculateDfModsSMSSSV(
     dfMods.push(3072);
   }
 
+  if (field.defenderSide.isDefCheered){
+    dfMods.push(6144);
+    desc.isDefCheered = true;
+  }
+
   if (
     (defender.hasAbility('Protosynthesis') &&
     (field.hasWeather('Sun') || attacker.hasItem('Booster Energy'))) ||
@@ -1481,10 +1501,10 @@ export function calculateFinalModsSMSSSV(
     finalMods.push(field.gameType !== 'Singles' ? 2732 : 2048);
     desc.isAuroraVeil = true;
   }
-  if (field.defenderSide.isDefCheered){
-    finalMods.push(2732);
-    desc.isDefCheered = true;
-  }
+  // if (field.defenderSide.isDefCheered){
+  //   finalMods.push(2732);
+  //   desc.isDefCheered = true;
+  // }
 
   if (attacker.hasAbility('Neuroforce') && typeEffectiveness > 1) {
     finalMods.push(5120);
