@@ -79,12 +79,27 @@ for (var bounded in bounds) {
 	attachValidation(bounded, bounds[bounded][0], bounds[bounded][1]);
 }
 function attachValidation(clazz, min, max) {
-	$("." + clazz).keyup(function () {
-		validate($(this), min, max);
-	});
+	if (clazz === "bossMultiplier") {
+		$("." + clazz).focusout(function () {
+			validate($(this), min, max);
+		});
+	} else {
+		$("." + clazz).keyup(function () {
+			validate($(this), min, max);
+		});
+	}
 }
 function validate(obj, min, max) {
-	obj.val(Math.max(min, Math.min(max, ~~obj.val())));
+	obj.val(clamp(sanitize(obj.val()), min, max));
+}
+
+function clamp(value, min, max) {
+	return Math.max(min, Math.min(max, value));
+}
+
+function sanitize(value) {
+	var sanitized = parseInt(value);
+	return isNaN(sanitized) ? 0 : sanitized;
 }
 
 $("input:radio[name='format']").change(function () {
@@ -867,7 +882,7 @@ function createPokemon(pokeInfo) {
 		var types = [pokeInfo.find(".type1").val(), pokeInfo.find(".type2").val()];
 		return new calc.Pokemon(gen, name, {
 			level: ~~pokeInfo.find(".level").val(),
-            bossMultiplier: ~~pokeInfo.find(".bossMultiplier").val(),
+            bossMultiplier: clamp(sanitize(pokeInfo.find(".bossMultiplier").val()), bounds["bossMultiplier"][0], bounds["bossMultiplier"][1]),
 			ability: ability,
 			abilityOn: pokeInfo.find(".abilityToggle").is(":checked"),
 			item: item,
@@ -1029,7 +1044,10 @@ function calcStat(poke, StatID) {
 	}
 
     if (gen === 9 && StatID === "hp"){
-        total *= ~~(poke.find(".bossMultiplier").val()/100);
+		var boss_multiplier = sanitize(poke.find(".bossMultiplier").val());
+		var min = bounds["bossMultiplier"][0]
+		var max = bounds["bossMultiplier"][1]
+		total *= (clamp(boss_multiplier, min, max) / 100)
     }
 	stat.find(".total").text(total);
 	return total;
