@@ -235,7 +235,7 @@ th {
     width: 7em;
 }
 .btn-xwide {
-    width: 8em;
+    width: 8.5em;
 }
 .btn-xxwide {
     width: 9em;
@@ -349,6 +349,12 @@ th {
 }
 .info-group {
     margin: 1em 0;
+}
+.info-group input.current-hp:not(.info-group) {
+    width: 3em;
+}
+.info-group .max-hp {
+    width: 3.5em;
 }
 .set-selector {
     width: 100%;
