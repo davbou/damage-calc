@@ -111,13 +111,7 @@ export function getFinalSpeed(gen: Generation, pokemon: Pokemon, field: Field, s
     speedMods.push(6144);
   } else if (pokemon.hasAbility('Slow Start') && pokemon.abilityOn) {
     speedMods.push(2048);
-  } else if (
-    getMostProficientStat(pokemon, gen) === 'spe' &&
-    ((pokemon.hasAbility('Protosynthesis') &&
-      (weather.includes('Sun') || pokemon.hasItem('Booster Energy'))) ||
-      (pokemon.hasAbility('Quark Drive') &&
-        (terrain === 'Electric' || pokemon.hasItem('Booster Energy'))))
-  ) {
+  } else if (isQPActive(pokemon, field) && getQPBoostedStat(pokemon, gen) === 'spe') {
     speedMods.push(6144);
   }
 
@@ -382,9 +376,8 @@ export function getBaseDamage(level: number, basePower: number, attack: number, 
 }
 
 /**
- * Get a pokemon's "most proficient stat".  This is useful for computing the
- * stat which will be modified by the abilities Protosynthesis and Quark Drive.
- *
+ * Get which stat will be boosted by Quark Drive or Protosynthesis
+ * In the case that `pokemon.boostedStat` is set, it will always return that stat
  * In the case that two stats have equal value, stat choices will be prioritized
  * in the following order:
  * Attack, Defense, Special Attack, Special Defense, and Speed
@@ -392,13 +385,17 @@ export function getBaseDamage(level: number, basePower: number, attack: number, 
  * @param modifiedStats
  * @returns
  */
-export function getMostProficientStat(
+export function getQPBoostedStat(
   pokemon: Pokemon,
   gen?: Generation
 ): StatID {
+  if (pokemon.boostedStat && pokemon.boostedStat !== 'auto') {
+    return pokemon.boostedStat; // override.
+  }
   let bestStat: StatID = 'atk';
   for (const stat of ['def', 'spa', 'spd', 'spe'] as StatID[]) {
     if (
+      // proto/quark ignore boosts when considering their boost
       getModifiedStat(pokemon.rawStats[stat], pokemon.boosts[stat], gen) >
       getModifiedStat(pokemon.rawStats[bestStat], pokemon.boosts[bestStat], gen)
     ) {
@@ -406,6 +403,28 @@ export function getMostProficientStat(
     }
   }
   return bestStat;
+}
+
+export function isQPActive(
+  pokemon: Pokemon,
+  field: Field
+): boolean {
+  if (!pokemon.boostedStat) {
+    return false;
+  }
+
+  const weather = field.weather || '';
+  const terrain = field.terrain;
+  if (
+    (pokemon.hasAbility('Protosynthesis') &&
+      (weather.includes('Sun') || pokemon.hasItem('Booster Energy'))) ||
+    (pokemon.hasAbility('Quark Drive') &&
+      (terrain === 'Electric' || pokemon.hasItem('Booster Energy'))) ||
+    (pokemon.boostedStat !== 'auto')
+  ) {
+    return true;
+  }
+  return false;
 }
 
 export function getFinalDamage(
