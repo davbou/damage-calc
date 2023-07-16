@@ -365,7 +365,7 @@ th {
 select.toxic-counter {
     width: 5.5em;
 }
-.move-selector, .move-bp, .move-type, .move-cat, .move-hits {
+.move-selector, .move-bp, .move-type, .move-cat, .move-hits, .metronome {
     font-size: 0.9em;
 }
 .move-selector {
@@ -386,6 +386,13 @@ select.toxic-counter {
 .poke-info .crit-btn {
     font-size: 0.8em;
     width: 2.5em;
+    height: 1em;
+    padding: 3px 3px;
+    margin: 0px 1px;
+}
+.poke-info .spread-btn {
+    font-size: 0.8em;
+    width: 4.5em;
     height: 1em;
     padding: 3px 3px;
     margin: 0px 1px;
