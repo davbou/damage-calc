@@ -490,8 +490,11 @@ $(".move-selector").change(function () {
 	var stat = move.category === 'Special' ? 'spa' : 'atk';
 	var dropsStats =
 		move.self && move.self.boosts && move.self.boosts[stat] && move.self.boosts[stat] < 0;
+	var spreadMove = ['allAdjacent', 'allAdjacentFoes'].includes(move.target) && move.category !== 'Status';
 	if (Array.isArray(move.multihit)) {
 		moveGroupObj.children(".stat-drops").hide();
+		moveGroupObj.children(".move-spread").hide();
+		moveGroupObj.children(".spread-btn").hide();
 		moveGroupObj.children(".move-hits").show();
 		var pokemon = $(this).closest(".poke-info");
 
@@ -511,9 +514,18 @@ $(".move-selector").change(function () {
 	} else if (dropsStats) {
 		moveGroupObj.children(".move-hits").hide();
 		moveGroupObj.children(".stat-drops").show();
+		moveGroupObj.children(".move-spread").hide();
+		moveGroupObj.children(".spread-btn").hide();
+	} else if (spreadMove) {
+		moveGroupObj.children(".move-hits").hide();
+		moveGroupObj.children(".stat-drops").hide();
+		moveGroupObj.children(".move-spread").show();
+		moveGroupObj.children(".spread-btn").show();
 	} else {
 		moveGroupObj.children(".move-hits").hide();
 		moveGroupObj.children(".stat-drops").hide();
+		moveGroupObj.children(".move-spread").hide();
+		moveGroupObj.children(".spread-btn").hide();
 	}
 	moveGroupObj.children(".move-z").prop("checked", false);
 });
@@ -969,6 +981,7 @@ function getMoveDetails(moveInfo, species, ability, item, useMax) {
 	var moveName = moveInfo.find("select.move-selector").val();
 	var isZMove = gen > 6 && moveInfo.find("input.move-z").prop("checked");
 	var isCrit = moveInfo.find(".move-crit").prop("checked");
+	var isSpread = moveInfo.find(".move-spread").prop("checked");
 	var hits = +moveInfo.find(".move-hits").val();
 	var timesUsed = +moveInfo.find(".stat-drops").val();
 	var timesUsedWithMetronome = moveInfo.find(".metronome").is(':visible') ? +moveInfo.find(".metronome").val() : 1;
@@ -978,7 +991,7 @@ function getMoveDetails(moveInfo, species, ability, item, useMax) {
 	};
 	if (gen >= 4) overrides.category = moveInfo.find(".move-cat").val();
 	return new calc.Move(gen, moveName, {
-		ability: ability, item: item, useZ: isZMove, species: species, isCrit: isCrit, hits: hits,
+		ability: ability, item: item, useZ: isZMove, species: species, isCrit: isCrit, isSpread: isSpread, hits: hits,
 		timesUsed: timesUsed, timesUsedWithMetronome: timesUsedWithMetronome, overrides: overrides, useMax: useMax
 	});
 }

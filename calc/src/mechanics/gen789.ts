@@ -454,10 +454,10 @@ export function calculateSMSSSV(
 
   let baseDamage = getBaseDamage(attacker.level, basePower, attack, defense);
 
-  const isSpread = field.gameType === 'Doubles' &&
-     ['allAdjacent', 'allAdjacentFoes'].includes(move.target);
+  const isSpread = move.isSpread && ['allAdjacent', 'allAdjacentFoes'].includes(move.target);
   if (isSpread) {
     baseDamage = pokeRound(OF32(baseDamage * 3072) / 4096);
+    desc.isSpread = true;
   }
 
   if (attacker.hasAbility('Parental Bond (Child)')) {

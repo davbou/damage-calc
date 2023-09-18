@@ -35,6 +35,7 @@ export interface RawDesc {
   isHelpingHand?: boolean;
   isAtkCheered?: boolean;
   isCritical?: boolean;
+  isSpread?: boolean;
   isLightScreen?: boolean;
   isDefCheered?: boolean;
   isDefCheeredBodyPress?: boolean;
@@ -992,6 +993,9 @@ function buildDescription(description: RawDesc, attacker: Pokemon, defender: Pok
   }
   if (description.isCritical) {
     output += ' on a critical hit';
+  }
+  if (description.isSpread) {
+    output += ' with spread damage';
   }
   if (description.isWonderRoom) {
     output += ' in Wonder Room';
