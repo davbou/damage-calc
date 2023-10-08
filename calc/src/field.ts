@@ -96,6 +96,7 @@ export class Side implements State.Side {
   isPowerSpot: boolean;
   powerSpots: number;
   steelySpirits: number;
+  batterys: number;
   isSwitching?: 'out' | 'in';
   isCharged: boolean;
 
@@ -124,6 +125,7 @@ export class Side implements State.Side {
     this.isPowerSpot = !!side.isPowerSpot;
     this.powerSpots = side.powerSpots || 0;
     this.steelySpirits = side.steelySpirits || 0;
+    this.batterys = side.batterys || 0;
     this.isSwitching = side.isSwitching;
     this.isCharged = !!side.isCharged;
   }

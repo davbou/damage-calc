@@ -1091,6 +1091,7 @@ function createField() {
 	var isPowerSpot = [$("#powerSpotL").prop("checked"), $("#powerSpotR").prop("checked")];
     var powerSpots = [~~$("input:radio[name='powerSpotL']:checked").val(), ~~$("input:radio[name='powerSpotR']:checked").val()];
     var steelySpirits = [~~$("input:radio[name='steelySpiritL']:checked").val(), ~~$("input:radio[name='steelySpiritR']:checked").val()];
+	var batterys = [~~$("input:radio[name='batteryL']:checked").val(), ~~$("input:radio[name='batteryR']:checked").val()];
 	// TODO: support switching in as well!
 	var isSwitchingOut = [$("#switchingL").prop("checked"), $("#switchingR").prop("checked")];
     var isCharged = [$("#chargedL").prop("checked"), $("#chargedR").prop("checked")];
@@ -1105,7 +1106,7 @@ function createField() {
 			isTailwind: isTailwind[i], isHelpingHand: isHelpingHand[i], isAtkCheered: isAtkCheered[i],
             isFlowerGift: isFlowerGift[i], isFriendGuard: isFriendGuard[i], friendGuards: friendGuards[i],
 			isAuroraVeil: isAuroraVeil[i], isBattery: isBattery[i], isPowerSpot: isPowerSpot[i], powerSpots: powerSpots[i], isSwitching: isSwitchingOut[i] ? 'out' : undefined,
-            steelySpirits: steelySpirits[i], isCharged: isCharged[i]
+            steelySpirits: steelySpirits[i], batterys: batterys[i], isCharged: isCharged[i]
 		});
 	};
 	return new calc.Field({

@@ -1040,9 +1040,16 @@ export function calculateBPModsSMSSSV(
     desc.attackerAbility = attacker.ability;
   }
 
-  if (field.attackerSide.isBattery && move.category === 'Special') {
-    bpMods.push(5325);
-    desc.isBattery = true;
+  // if (field.attackerSide.isBattery && move.category === 'Special') {
+  //   bpMods.push(5325);
+  //   desc.isBattery = true;
+  // }
+
+  if (field.attackerSide.batterys > 0 && move.category === 'Special'){
+    for(var i = 0; i < field.attackerSide.batterys; i++){
+        bpMods.push(5325);
+    }
+    desc.batterys = field.attackerSide.batterys;
   }
 
   if (field.attackerSide.isPowerSpot) {
