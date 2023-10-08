@@ -53,6 +53,7 @@ export interface RawDesc {
   powerSpots?: number;
   rivalry?: 'buffed' | 'nerfed';
   steelySpirits?: number;
+  batterys?: number;
   terrain?: Terrain;
   weather?: Weather;
   isDefenderDynamaxed?: boolean;
@@ -903,6 +904,9 @@ function buildDescription(description: RawDesc, attacker: Pokemon, defender: Pok
   if (description.isBattery) {
     output += ' Battery boosted ';
   }
+  if(description.batterys){
+    output += `with ${description.batterys} Battery ${description.batterys === 1 ? 'boost' : 'boosts'} `;
+  }
   if (description.isPowerSpot) {
     output += ' Power Spot boosted ';
   }
@@ -986,7 +990,7 @@ function buildDescription(description: RawDesc, attacker: Pokemon, defender: Pok
     output += ' with an ally\'s Friend Guard';
   }
   if (description.friendGuards) {
-    output += ` with ${description.friendGuards} ${description.friendGuards > 1 ? "allies'" : "ally's"} Friend Guard${description.steelySpirits === 1 ? '' : 's'}`;
+    output += ` with ${description.friendGuards} ${description.friendGuards > 1 ? "allies'" : "ally's"} Friend Guard${description.friendGuards === 1 ? '' : 's'}`;
   }
   if (description.isAuroraVeil) {
     output += ' with an ally\'s Aurora Veil';
