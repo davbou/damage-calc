@@ -1050,7 +1050,7 @@ function getMoveDetails(moveInfo, species, ability, item, useMax) {
 }
 
 function createField() {
-	var gameType = $("input:radio[name='format']:checked").val();
+	var gameType = "Doubles";
 	var isBeadsOfRuin = $("#beads").prop("checked");
 	var isTabletsOfRuin = $("#tablets").prop("checked");
 	var isSwordOfRuin = $("#sword").prop("checked");
