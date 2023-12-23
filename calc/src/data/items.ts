@@ -83,7 +83,6 @@ const GSC_ONLY = [
   'Pink Bow',
   'Polkadot Bow',
   'PSN Cure Berry',
-  'Enigma Berry',
 ];
 
 const ADV = GSC.filter(i => !GSC_ONLY.includes(i)).concat([
@@ -484,6 +483,7 @@ const SV = SS.concat([
   'Loaded Dice',
   'Malicious Armor',
   'Masterpiece Teacup',
+  'Metal Alloy',
   'Mirror Herb',
   'Punching Glove',
   'Lustrous Globe',

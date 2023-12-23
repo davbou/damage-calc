@@ -12,6 +12,31 @@
     --column-1: #2a2a2a;
 }
 
+
+
+.header {
+    margin: 0 0 30px 0;
+
+    background: #E5ECFB;
+    background: -webkit-gradient(linear, left top, left bottom, from(hsl(222, 0%, 95%)), to(hsl(218, 0%, 88%)));
+    background: -moz-linear-gradient(top,  hsl(222, 0%, 95%),  hsl(218, 0%, 88%));
+    background: linear-gradient(top,  hsl(222, 0%, 95%),  hsl(218, 0%, 88%));
+
+    border-bottom: 1px solid hsl(0, 0%, 67%);
+    box-shadow: inset 1px 1px 0 hsla(0, 0%, 100%, 0.6), 0px 2px 2px hsla(0, 0%, 0%, 0.15);
+    min-height: 50px;
+
+    filter: invert(1)
+}
+
+.header .greenbutton {
+    filter: hue-rotate(180deg)
+}
+
+.header img {
+    filter: hue-rotate(80deg) saturate(1.5)
+}
+
 html, body {
     color: var(--text);
     background-color: var(--background);
@@ -153,12 +178,6 @@ label:not(.btn) {
 
 /* Select2 Dropdown stylings */
 
-.select2-container .select2-choice {
-    background: var(--background);
-    background-image: linear-gradient(#333, 70%, #1b1b1b);
-    /* Not fully satisfied w/ this gradient, but it's w/e */
-    color: var(--text);
-}
 
 .select2-container .select2-choice .select2-arrow {
     background: none;
@@ -179,6 +198,9 @@ label:not(.btn) {
 .select2-dropdown-open.select2-drop-above .select2-choice,
 .select2-dropdown-open.select2-drop-above .select2-choices {
     background-image: none;
+}
+.select2-no-results {
+    background-color: var(--background) !important;
 }
 
 input.select2-input {

@@ -5,12 +5,12 @@ a img {
     margin: 0 0 30px 0;
 
     background: #E5ECFB;
-    background: -webkit-gradient(linear, left top, left bottom, from(#E8EEFC), to(#D7DEEA));
-    background: -moz-linear-gradient(top,  #E8EEFC,  #D7DEEA);
-    background: linear-gradient(top,  #E8EEFC,  #D7DEEA);
+    background: -webkit-gradient(linear, left top, left bottom, from(hsl(222, 77%, 95%)), to(#D7DEEA));
+    background: -moz-linear-gradient(top,  hsl(222, 77%, 95%),  hsl(218, 31%, 88%));
+    background: linear-gradient(top,  hsl(222, 77%, 95%),  hsl(218, 31%, 88%));
     filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#E8EEFC', endColorstr='#D7DEEA');
 
-    border-bottom: 1px solid #AAA;
+    border-bottom: 1px solid hsl(0, 0%, 67%);
     box-shadow: inset 1px 1px 0 rgba(255, 255, 255, .6), 0px 2px 2px rgba(0, 0, 0, .15);
     min-height: 50px;
 }
@@ -135,8 +135,8 @@ html, body {
     padding: 0;
 }
 .wrapper {
-	 padding: 0 3em;
-    max-width: 1285px;
+    padding: 0 1em;
+    max-width: 1300px;
     margin: 0 auto;
 }
 .credits {
@@ -179,21 +179,32 @@ th {
     font-weight: bold;
     font-size: 1.1em;
     margin: 0.5em 0;
+    position: relative;
 }
 .big-text #mainResult:hover {  /* indicates the presence of click-to-copy function */
     cursor: pointer;
     opacity: 0.7;
 }
 #tooltipText {
+    position: absolute;
+    left: 42%;
+    top: -170%;
     font-size: 0.8em;
     visibility: hidden;
     border-radius: 5px;
-    width: 120px;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.7);
     color: white;
     text-align: center;
     padding: 5px;
-    margin-left: 10px;
+    font-weight: normal;
+}
+#tooltipText::after {
+    position: absolute;
+    left: 45%;
+    top: 100%;
+    content: '';
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.7);
 }
 .small-text {
     font-size: 0.8em;
@@ -203,7 +214,7 @@ th {
     display: inline-block; /* required for honkaculate to work */
 }
 .poke-info {
-    width: 30em;
+    width: 32em;
 }
 .field-info, .poke-import {
     text-align: center;
@@ -402,6 +413,7 @@ select.toxic-counter {
     width: 1.5em;
     height: 1em;
     padding: 3px 3px;
+    margin-right: 1px;
 }
 .poke-info .max-btn {
 	font-size: 0.8em;
@@ -409,6 +421,13 @@ select.toxic-counter {
 	height: 1em;
 	padding: 3px 3px;
 }
+.poke-info .stellar-btn {
+   font-size: 0.8em;
+   width: 3.5em;
+   height: 1em;
+   padding: 3px 3px;
+}
+
 
 /* field info */
 .field-info .btn {

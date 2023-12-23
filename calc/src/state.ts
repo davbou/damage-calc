@@ -31,7 +31,7 @@ export namespace State {
     useZ?: boolean;
     useMax?: boolean;
     isCrit?: boolean;
-    isSpread?: boolean;
+    isStellarFirstUse?: boolean;
     hits?: number;
     timesUsed?: number;
     timesUsedWithMetronome?: number;

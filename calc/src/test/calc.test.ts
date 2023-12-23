@@ -44,9 +44,9 @@ describe('calc', () => {
 
     tests('Comet Punch', ({gen, calculate, Pokemon, Move}) => {
       expect(calculate(Pokemon('Snorlax'), Pokemon('Vulpix'), Move('Comet Punch'))).toMatch(gen, {
-        1: {range: [36, 43], desc: 'Snorlax Comet Punch (3 hits) vs. Vulpix', result: '(38.7 - 46.2%) -- approx. 3HKO'},
-        3: {range: [44, 52], desc: '0 Atk Snorlax Comet Punch (3 hits) vs. 0 HP / 0 Def Vulpix', result: '(60.8 - 71.8%) -- approx. 2HKO'},
-        4: {range: [43, 52], result: '(59.4 - 71.8%) -- approx. 2HKO'},
+        1: {range: [108, 129], desc: 'Snorlax Comet Punch (3 hits) vs. Vulpix', result: '(38.7 - 46.2%) -- approx. 3HKO'},
+        3: {range: [132, 156], desc: '0 Atk Snorlax Comet Punch (3 hits) vs. 0 HP / 0 Def Vulpix', result: '(60.8 - 71.8%) -- approx. 2HKO'},
+        4: {range: [129, 156], result: '(59.4 - 71.8%) -- approx. 2HKO'},
       });
     });
 
@@ -999,6 +999,26 @@ describe('calc', () => {
           attacker.teraType = 'Water';
           result = calculate(attacker, defender, Move('Revelation Dance'));
           expect(result.move.type).toBe('Water');
+        });
+
+        test('Flower Gift, Power Spot, Battery, and switching boosts shouldn\'t have double spaces', () => {
+          const attacker = Pokemon('Weavile');
+          const defender = Pokemon('Vulpix');
+          const field = Field({
+            weather: 'Sun',
+            attackerSide: {
+              isFlowerGift: true,
+              isPowerSpot: true,
+            },
+            defenderSide: {
+              isSwitching: 'out',
+            },
+          });
+          const result = calculate(attacker, defender, Move('Pursuit'), field);
+
+          expect(result.desc()).toBe(
+            "0 Atk Weavile with an ally's Flower Gift Power Spot boosted switching boosted Pursuit (80 BP) vs. 0 HP / 0 Def Vulpix in Sun: 399-469 (183.8 - 216.1%) -- guaranteed OHKO"
+          );
         });
       });
     });
