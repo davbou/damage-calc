@@ -6,13 +6,18 @@
     --background: #1b1b1b;
 
     --button-hover: black;
-    --button-selected: #232e51;
+    --button-selected: hsl(120, 40%, 23%);
     --fieldset-color: #2a2a2a;
 
     --column-1: #2a2a2a;
 }
 
-
+input[type="checkbox" i]{
+    accent-color: green;
+}
+.select2-results .select2-highlighted {
+    background : hsl(120 41% 21% / 1)
+}
 
 .header {
     margin: 0 0 30px 0;
