@@ -1093,6 +1093,7 @@ function getMoveDetails(moveInfo, species, ability, item, useMax) {
 	var isZMove = gen > 6 && moveInfo.find("input.move-z").prop("checked");
 	var isCrit = moveInfo.find(".move-crit").prop("checked");
 	var isStellarFirstUse = moveInfo.find(".move-stellar").prop("checked");
+    var isSpread = moveInfo.find(".move-spread").prop("checked");
 	var hits = +moveInfo.find(".move-hits").val();
 	var timesUsed = +moveInfo.find(".stat-drops").val();
 	var timesUsedWithMetronome = moveInfo.find(".metronome").is(':visible') ? +moveInfo.find(".metronome").val() : 1;
@@ -1102,7 +1103,7 @@ function getMoveDetails(moveInfo, species, ability, item, useMax) {
 	};
 	if (gen >= 4) overrides.category = moveInfo.find(".move-cat").val();
 	return new calc.Move(gen, moveName, {
-		ability: ability, item: item, useZ: isZMove, species: species, isCrit: isCrit, hits: hits,
+		ability: ability, item: item, useZ: isZMove, species: species, isCrit: isCrit, hits: hits, isSpread: isSpread,
 		isStellarFirstUse: isStellarFirstUse, timesUsed: timesUsed, timesUsedWithMetronome: timesUsedWithMetronome,
 		overrides: overrides, useMax: useMax
 	});

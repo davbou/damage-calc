@@ -31,6 +31,7 @@ export class Move implements State.Move {
   struggleRecoil: boolean;
   isCrit: boolean;
   isStellarFirstUse: boolean;
+  isSpread: boolean;
   drain?: [number, number];
   priority: number;
   dropsStats?: number;
@@ -128,6 +129,7 @@ export class Move implements State.Move {
       this.dropsStats = Math.abs(data.self.boosts[stat]!);
     }
     this.timesUsed = (this.dropsStats && options.timesUsed) || 1;
+    this.isSpread = !!options.isSpread;
     this.secondaries = data.secondaries;
     // For the purposes of the damage formula only 'allAdjacent' and 'allAdjacentFoes' matter, so we
     // simply default to 'any' for the others even though they may not actually be 'any'-target
@@ -181,6 +183,7 @@ export class Move implements State.Move {
       isStellarFirstUse: this.isStellarFirstUse,
       hits: this.hits,
       timesUsed: this.timesUsed,
+      isSpread: this.isSpread,
       timesUsedWithMetronome: this.timesUsedWithMetronome,
       overrides: this.overrides,
     });

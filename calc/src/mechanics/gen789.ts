@@ -290,7 +290,6 @@ export function calculateSMSSSV(
     )
     : 1;
   let typeEffectiveness = type1Effectiveness * type2Effectiveness;
-
   if (defender.teraType && defender.teraType !== 'Stellar') {
     typeEffectiveness = getMoveEffectiveness(
       gen,
@@ -301,6 +300,7 @@ export function calculateSMSSSV(
       isRingTarget
     );
   }
+
 
   if (typeEffectiveness === 0 && move.hasType('Ground') &&
     defender.hasItem('Iron Ball') && !defender.hasAbility('Klutz')) {
@@ -1587,10 +1587,10 @@ function calculateBaseDamageSMSSSV(
   isCritical = false,
 ) {
   let baseDamage = getBaseDamage(attacker.level, basePower, attack, defense);
-  const isSpread = field.gameType !== 'Singles' &&
-     ['allAdjacent', 'allAdjacentFoes'].includes(move.target);
+  const isSpread = move.isSpread && ['allAdjacent', 'allAdjacentFoes'].includes(move.target);
   if (isSpread) {
     baseDamage = pokeRound(OF32(baseDamage * 3072) / 4096);
+    desc.isSpread = true;
   }
 
   if (attacker.hasAbility('Parental Bond (Child)')) {
