@@ -638,6 +638,16 @@ export function calculateSMSSSV(
       let damageMultiplier = 0;
       damage = damage.map(affectedAmount => {
         if (times) {
+          field.attackerSide.isHelpingHand = false; // Helping Hand only applies to the first hit in Tera Raids
+          const newBasePower = calculateBasePowerSMSSSV(
+            gen,
+            attacker,
+            defender,
+            move,
+            field,
+            hasAteAbilityTypeChange,
+            desc
+          )
           const newFinalMods = calculateFinalModsSMSSSV(
             gen,
             attacker,
@@ -654,7 +664,7 @@ export function calculateSMSSSV(
             gen,
             attacker,
             defender,
-            basePower,
+            newBasePower,
             attack,
             newDefense,
             move,
