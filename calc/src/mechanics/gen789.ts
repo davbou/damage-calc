@@ -950,6 +950,7 @@ export function calculateBPModsSMSSSV(
   // Move effects
 
   let resistedKnockOffDamage =
+    (attacker.bossMultiplier > 100) ||
     (!defender.item || isQPActive(defender, field)) ||
     (defender.named('Dialga-Origin') && defender.hasItem('Adamant Crystal')) ||
     (defender.named('Palkia-Origin') && defender.hasItem('Lustrous Globe')) ||
